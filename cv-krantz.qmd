@@ -1,0 +1,111 @@
+---
+format:
+  pdf:
+    toc: false
+    number-sections: false
+    colorlinks: true
+    documentclass: scrartcl
+    papersize: letter
+    pdf-engine: xelatex
+    fontsize: 10pt
+    geometry:
+      - margin=1in
+      - heightrounded
+    include-in-header:
+      - preamble.tex
+execute:
+  warning: false
+  echo: false
+  message: false
+  eval: true
+---
+
+```{r}
+#| name: setup
+#| include: false
+#| message: false
+#| eval: true
+
+knitr::opts_chunk$set(
+  fig.path = "figs/",
+  fig.width = 7.252,
+  fig.height = 4,
+  comment = "#>",
+  fig.retina = 3
+)
+
+source("functions.R")
+
+# Store IDs
+gscholar_id <- 'DY2D56IAAAAJ'
+gscholar_page <- paste0("https://scholar.google.com/citations?user=", gscholar_id)
+```
+
+\par\centering{\LARGE{Matthew Steven Krantz, MD}}
+\par\centering{Division of Allergy, Pulmonary, and Critical Care Medicine}
+\vspace{-5pt}
+\par\centering{Vanderbilt University Medical Center}
+\vspace{-5pt}
+\par\centering{T-1218 Medical Center North}
+\vspace{-5pt}
+\par\centering{1161 21st Ave. S. Nashville, TN 37232-2650}
+\vspace{-5pt}
+\par\centering{{\large\Telefon} +1 (615) 322-6943}
+\vspace{-5pt}
+\par\centering{{\large\Letter} matthew.s.krantz@vumc.org}
+\vspace{-5pt}
+\par\centering{\href{http://www.mattkrantz.com}{mattkrantz.com}}
+
+\vspace{-10pt}
+
+# Education
+
+\vspace{-10pt}
+\begin{longtable}{lll}
+
+    2012 & University of North Carolina, Chapel Hill, NC & BS Biology\\
+    
+    2016 & University of North Carolina, Chapel Hill, NC & MD Medicine\\
+
+    2025 (anticipated) & Vanderbilt University, Nashville, TN, & MS Biomedical Informatics\\
+    
+\end{longtable}
+
+\vspace{-10pt}
+
+# Post-Graduate Training
+
+\vspace{-10pt}
+\begin{longtable}{lll}
+
+    2016 - 2024 & Vanderbilt University Medical Center, Nashville, TN & Residency Internal Medicine\\
+    
+    2020 - 2024 & Vanderbilt University Medical Center, Nashville, TN & Fellowship Allergy Immunology\\
+
+\end{longtable}
+
+\vspace{-10pt}
+
+
+# Research Interests
+
+- **Immunogenomics**:
+
+\vspace{-10pt}
+
+# Teaching Interests
+
+- **Clinical Drug Allergy**:
+
+# Academic Appointments
+
+\vspace{-10pt}
+\begin{longtable}{llp{15cm}}
+2025 - Present & \textbf{Vanderbilt University}, Nashville, TN & \\
+ & Assistant Professor of Medicine, Division of Allergy, Pulmonary, and Critical Care Medicine\\[5pt]
+
+2024 - 2025 & \textbf{Vanderbilt University}, Nashville, TN & \\
+ & Instructor in Medicine, Division of Allergy, Pulmonary, and Critical Care Medicine\\
+\end{longtable}
+
+\vspace{-10pt}

@@ -41,10 +41,10 @@ gscholar_id <- 'DY2D56IAAAAJ'
 gscholar_page <- paste0("https://scholar.google.com/citations?user=", gscholar_id)
 ```
 
-\par\centering{\LARGE{John Paul Helveston, Ph.D.}}
+\par\centering{\LARGE{Matthew Steven Krantz, MD}}
 \par\centering{Engineering Management and Systems Engineering}
 \vspace{-5pt}
-\par\centering{The George Washington University}
+\par\centering{Vanderbilt University Medical Center}
 \vspace{-5pt}
 \par\centering{Science \& Engineering Hall, Office 2830}
 \vspace{-5pt}
@@ -52,9 +52,9 @@ gscholar_page <- paste0("https://scholar.google.com/citations?user=", gscholar_i
 \vspace{-5pt}
 \par\centering{{\large\Telefon} +1 (202) 994-7173}
 \vspace{-5pt}
-\par\centering{{\large\Letter} jph@gwu.edu}
+\par\centering{{\large\Letter} matthew.s.krantz@vumc.org}
 \vspace{-5pt}
-\par\centering{\href{http://www.jhelvy.com}{www.jhelvy.com}}
+\par\centering{\href{http://www.mattkrantz.com}{www.mattkrantz.com}}
 
 \vspace{-10pt}
 
