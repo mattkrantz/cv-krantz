@@ -86,10 +86,9 @@ gscholar_page <- paste0("https://scholar.google.com/citations?user=", gscholar_i
 
 \vspace{-10pt}
 
-
 # Research Interests
 
-- **Immunogenomics**:
+- **Immunogenomics**
 
 \vspace{-10pt}
 
@@ -97,7 +96,7 @@ gscholar_page <- paste0("https://scholar.google.com/citations?user=", gscholar_i
 
 - **Clinical Drug Allergy**:
 
-# Academic Appointments
+# Academic Appointments:
 
 \vspace{-10pt}
 \begin{longtable}{llp{15cm}}
@@ -107,5 +106,57 @@ gscholar_page <- paste0("https://scholar.google.com/citations?user=", gscholar_i
 2024 - 2025 & \textbf{Vanderbilt University}, Nashville, TN & \\
  & Instructor in Medicine, Division of Allergy, Pulmonary, and Critical Care Medicine\\
 \end{longtable}
+
+# Licensure and Certification:
+
+```{r}
+library(dplyr)
+library(here)
+licensure_certifications <- read.csv(here("data", "licensure-certification.csv")) %>% 
+  arrange(desc(year_start)) %>% 
+  mutate(citation = paste0(year_start, " - ", year_end, " ", description))
+```
+
+```{r}
+#| results: asis
+
+licensure_certifications %>% 
+  pull(citation) %>% 
+  make_ordered_list()
+```
+
+# Professional Organizations:
+
+# Professional Activities
+
+## Intramural:
+
+## Extramural:
+
+## Scientific Reviewer for Peer-Reviewed Journals:
+
+# Honors, Awards, and Recognitions:
+
+```{r}
+library(dplyr)
+library(here)
+awards <- read.csv(here("data", "honors-awards.csv")) %>% 
+  arrange(desc(date)) %>% 
+  mutate(citation = paste0(date, ": ", description, '.'))
+```
+
+```{r}
+#| results: asis
+
+awards %>% 
+  pull(citation) %>% 
+  make_bullet_list()
+```
+
+# Teaching Activities:
+
+# Research Program:
+
+# Publications:
 
 \vspace{-10pt}
