@@ -199,7 +199,7 @@ library(dplyr)
 library(here)
 awards <- read.csv(here("data", "honors-awards.csv")) %>% 
   arrange(desc(date)) %>% 
-  mutate(citation = paste0(date, ": ", description, '.'))
+  mutate(citation = paste0(date, ": ", description))
 ```
 
 ```{r}
@@ -214,6 +214,40 @@ awards %>%
 
 # Research Program
 
-# Publications
+# Articles in Peer-Reviewed Journals
+
+## Original Research
+
+```{r}
+publications <- read.csv(here('data', 'publications.csv')) %>%
+  mutate(
+      author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
+    journal  = ifelse(is.na(journal), '', paste0('_', journal, '_.')),
+    number   = ifelse(is.na(number), '', paste0(number, '.')),
+    PMCID   = ifelse(is.na(number), '', PMCID),
+    doi      = ifelse(
+               is.na(doi), '',
+               paste0('DOI: [', doi, '](', 'https://doi.org/', doi, ')')),
+    title    = title,
+    citation = paste0(author, ". ", title, ". ", journal, " ", date, ";", number, " ", doi, ". ", "PMID: ", PMID, "; ", "PMCID: ", PMCID, ".")
+  ) %>% 
+  arrange(desc(epub_date))
+```
+
+```{r}
+#| results: asis
+
+make_ordered_list_filtered(publications, "original_research")
+```
+
+## Reviews
+
+```{r}
+#| results: asis
+
+make_ordered_list_filtered(publications, "reviews")
+```
+
+## Graphic Medicine
 
 \vspace{-10pt}
