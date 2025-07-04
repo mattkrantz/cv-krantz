@@ -251,12 +251,50 @@ make_ordered_list_filtered(publications, "reviews")
 
 ## Invited Editorials
 
+```{r}
+#| results: asis
+
+make_ordered_list_filtered(publications, "invited_editorials")
+```
+
 ## Case Reports
 
-## Book Chapters
+```{r}
+#| results: asis
+
+make_ordered_list_filtered(publications, "case_reports")
+```
+
+# Book Chapters
+
+# Graphic Medicine
+
+
+```{r}
+graphic_medicine <- read.csv(here('data', 'graphic-medicine.csv')) %>%
+  mutate(
+      epub_date = as.Date(epub_date, format = "%m/%d/%y"),
+      author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
+    journal  = ifelse(is.na(journal), '', paste0('_', journal, '_.')),
+    number   = ifelse(is.na(number), '', paste0(number, '.')),
+    PMCID   = ifelse(is.na(number), '', PMCID),
+    doi      = ifelse(
+               is.na(doi), '',
+               paste0('DOI: [', doi, '](', 'https://doi.org/', doi, ')')),
+    title    = title,
+    citation = paste0(author, ". ", title, ". ", journal, " ", date, ";", number, " ", doi, ". ", "PMID: ", PMID, "; ", "PMCID: ", PMCID, ".")
+  ) %>% 
+  arrange(desc(epub_date))
+```
+
+```{r}
+#| results: asis
+
+make_ordered_list_filtered(graphic_medicine, "graphic_medicine")
+```
+
+# Media
 
 ## Newsletter Articles
-
-## Graphic Medicine
 
 \vspace{-10pt}
