@@ -221,6 +221,7 @@ awards %>%
 ```{r}
 publications <- read.csv(here('data', 'publications.csv')) %>%
   mutate(
+      epub_date = as.Date(epub_date, format = "%m/%d/%y"),
       author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
     journal  = ifelse(is.na(journal), '', paste0('_', journal, '_.')),
     number   = ifelse(is.na(number), '', paste0(number, '.')),
@@ -247,6 +248,14 @@ make_ordered_list_filtered(publications, "original_research")
 
 make_ordered_list_filtered(publications, "reviews")
 ```
+
+## Invited Editorials
+
+## Case Reports
+
+## Book Chapters
+
+## Newsletter Articles
 
 ## Graphic Medicine
 
