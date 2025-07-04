@@ -267,6 +267,23 @@ make_ordered_list_filtered(publications, "case_reports")
 
 # Book Chapters
 
+```{r}
+book_chapters <- read.csv(here('data', 'book-chapters.csv')) %>%
+  mutate(
+      author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
+      book_title  = ifelse(is.na(book_title), '', paste0('_', book_title, '_')),
+      chapter_title=enquote(chapter_title),
+    citation = paste0(author, ". ", "(", date, ") ", chapter_title, " in ", editor, " (ed.) ", book_title, ". ", place, ": ", publisher, ".")
+  ) %>% 
+  arrange(desc(date))
+```
+
+```{r}
+#| results: asis
+
+make_ordered_list_filtered(book_chapters, "book_chapters")
+```
+
 # Graphic Medicine
 
 
