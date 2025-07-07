@@ -7,7 +7,8 @@ format:
     documentclass: scrartcl
     papersize: letter
     pdf-engine: xelatex
-    fontsize: 10pt
+    mainfont: Arial
+    fontsize: 11pt
     geometry:
       - margin=1in
       - heightrounded
@@ -57,12 +58,12 @@ source("functions.R")
 # Education
 
 \vspace{-10pt}
-\begin{longtable}{lll}
+\begin{longtable}{llp{15cm}}
+2012 & BS & University of North Carolina, Chapel Hill, NC\\
+ & & \hspace{2em}Major - Biology with distinction\\
+ & & \hspace{2em}Minors - Chemistry, Writing for the Screen and Stage\\[5pt]
 
-    2012 & University of North Carolina, Chapel Hill, NC & BS Biology\\
-    
-    2016 & University of North Carolina, Chapel Hill, NC & MD Medicine\\
-
+2016 & MD & University of North Carolina School of Medicine, Chapel Hill, NC\\[5pt]
 \end{longtable}
 
 \vspace{-10pt}
@@ -70,12 +71,16 @@ source("functions.R")
 # Post-Graduate Training
 
 \vspace{-10pt}
-\begin{longtable}{lll}
+\begin{longtable}{llp{15cm}}
+2016 - 2020 & Internship/Residency & \\
+ & Internal Medicine/Pediatrics & \\
+ & Vanderbilt University Medical Center &\\
+ & Nashville, TN\\[5pt]
 
-    2016 - 2024 & Vanderbilt University Medical Center, Nashville, TN & Residency Internal Medicine-Pediatrics\\
-    
-    2020 - 2024 & Vanderbilt University Medical Center, Nashville, TN & Fellowship Allergy-Immunology\\
-
+2020 - 2024 & Fellowship & \\
+ & Allergy/Immunology & \\
+ & Vanderbilt University Medical Center &\\
+ & Nashville, TN\\[5pt]
 \end{longtable}
 
 \vspace{-10pt}
@@ -95,10 +100,10 @@ source("functions.R")
 \vspace{-10pt}
 \begin{longtable}{llp{15cm}}
 2025 - Present & \textbf{Vanderbilt University}, Nashville, TN & \\
- & Assistant Professor of Medicine, Division of Allergy, Pulmonary, and Critical Care Medicine\\[5pt]
+ & Assistant Professor of Medicine and Biomedical Informatics\\[5pt]
 
 2024 - 2025 & \textbf{Vanderbilt University}, Nashville, TN & \\
- & Instructor in Medicine, Division of Allergy, Pulmonary, and Critical Care Medicine\\
+ & Instructor in Medicine and Biomedical Informatics\\
 \end{longtable}
 
 # Licensure and Certification
@@ -199,7 +204,7 @@ library(dplyr)
 library(here)
 awards <- read.csv(here("data", "honors-awards.csv")) %>% 
   arrange(desc(date)) %>% 
-  mutate(citation = paste0(date, ": ", description))
+  mutate(citation = paste0(description, " (", date, ")"))
 ```
 
 ```{r}
@@ -213,6 +218,27 @@ awards %>%
 # Teaching Activities
 
 # Research Program
+
+## Current Research Grants & Contracts Funded
+
+```{r}
+library(dplyr)
+library(here)
+library(lubridate)
+grants <- read.csv(here('data', 'grants.csv')) %>%
+  mutate(
+      project_start_date = as.Date(project_start_date, format="%m/%d/%y"),
+      project_end_date = as.Date(project_end_date, format="%m/%d/%y"),
+    project_start_date_formatted = format(project_start_date, "%m/%d/%y"),
+    project_end_date_formatted = format(project_end_date, "%m/%d/%y"),
+      title = enquote(paste0('[', title, ']', '(', url, ')')),
+    citation = paste0(id, ". ", title, ". Source of Support: ", source_of_support, ". ", "PI: ", pi_name, ". Total Award Amount: ", budget_total, ". Project Start and End Date: ", project_start_date_formatted, " - ", project_end_date_formatted)) %>% arrange(desc(project_end_date))
+```
+
+```{r}
+#| results: asis
+grants %>% pull(citation) %>% make_ordered_list()
+```
 
 # Articles in Peer-Reviewed Journals
 
@@ -312,6 +338,24 @@ make_ordered_list_filtered(graphic_medicine, "graphic_medicine")
 
 # Media
 
-## Newsletter Articles
+```{r}
+media <- read.csv(here('data', 'media.csv')) %>%
+  arrange(desc(date)) %>%
+  mutate(
+      date = format(date, format = "%b %d, %Y"),
+      outlet = paste0("**", outlet, "**"),
+      citation = paste0(date, ", ", outlet, ": ", post, '.')
+  )
+
+
+```
+
+```{r}
+#| results: asis
+
+media %>% 
+  pull(citation) %>% 
+  make_ordered_list()
+```
 
 \vspace{-10pt}
