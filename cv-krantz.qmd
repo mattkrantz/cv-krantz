@@ -100,11 +100,11 @@ source("functions.R")
 
 \vspace{-10pt}
 \begin{longtable}{llp{15cm}}
-2025 - Present & Assistant Professor of Medicine and Biomedical Informatics\\
- & Vanderbilt University, Nashville, TN\\[5pt]
+2025 - Present & Assistant Professor of Medicine and Biomedical Informatics &\\
+ & Vanderbilt University, Nashville, TN &\\[5pt]
 
 2024 - 2025 & Instructor in Medicine and Biomedical Informatics\\
- & Vanderbilt University, Nashville, TN \\
+ & Vanderbilt University, Nashville, TN &\\
 \end{longtable}
 
 \vspace{-10pt}
