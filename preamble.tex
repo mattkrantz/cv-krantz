@@ -3,10 +3,14 @@
 
 % Header and footer
 
-\usepackage{fancyhdr}
+\usepackage{fontspec}
+\setmainfont{Arial} % Sets the main document font
+\setsansfont{Arial} % Sets the sans-serif font (optional)
+\renewcommand{\headfont}{\fontspec{Arial}}
 
-\pagestyle{fancy}
+\usepackage{fancyhdr}
 \fancyhf{}
+\pagestyle{fancy}
 \fancyfoot[L]{\textcolor{gray}{\footnotesize\emph{Updated \today}}}
 \fancyfoot[R]{\textcolor{gray}{\footnotesize\emph{Available at \href{https://mattkrantz.com/cv}{https://mattkrantz.com/cv}}}}
 \fancyfoot[C]{\textcolor{gray}{\footnotesize\emph{Page \thepage\ of \pageref{LastPage}}}}

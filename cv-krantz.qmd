@@ -7,7 +7,6 @@ format:
     documentclass: scrartcl
     papersize: letter
     pdf-engine: xelatex
-    mainfont: Arial
     fontsize: 11pt
     geometry:
       - margin=1in
