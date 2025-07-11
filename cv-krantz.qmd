@@ -249,18 +249,21 @@ grants %>% pull(citation) %>% make_ordered_list()
 ## Original Research
 
 ```{r}
+library(dplyr)
+library(here)
 publications <- read.csv(here('data', 'publications.csv')) %>%
   mutate(
       epub_date = as.Date(epub_date, format = "%m/%d/%y"),
       author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
     journal  = ifelse(is.na(journal), '', paste0('_', journal, '_.')),
-    number   = ifelse(is.na(number), '', paste0(number, '.')),
-    PMCID   = ifelse(is.na(number), '', PMCID),
+    number   = ifelse(number=='', '', paste0(number, '.')),
+    PMID    = ifelse(number=='', '', paste0("PMID: ", PMID, ".")),
+    PMCID   = ifelse(PMCID=='', '', paste0("PMCID: ", PMCID, ".")),
     doi      = ifelse(
-               is.na(doi), '',
+               doi=='', '',
                paste0('DOI: [', doi, '](', 'https://doi.org/', doi, ')')),
     title    = title,
-    citation = paste0(author, ". ", title, ". ", journal, " ", date, ";", number, " ", doi, ". ", "PMID: ", PMID, "; ", "PMCID: ", PMCID, ".")
+    citation = paste0(author, ". ", title, ". ", journal, " ", date, ";", number, " ", doi, ". ", PMID, " ", PMCID)
   ) %>% 
   arrange(desc(epub_date))
 ```
