@@ -365,4 +365,26 @@ media %>%
   make_ordered_list()
 ```
 
+# Presentations
+
+```{r}
+presentations <- read.csv(here('data', 'presentations.csv')) %>%
+  arrange(desc(date)) %>% 
+  mutate(
+    with = ifelse(is.na(with), '', paste0(', with ', with)),
+    title = paste0(enquote(title), with),
+    title = ifelse(is.na(series), title, paste(title, series, sep = '. ')),
+    date = paste0(format(as.Date(date), format = "%b %d, %Y"), '.'),
+    citation = paste(title, host, location, date, sep = '. ')
+  )
+```
+
+## Invited Speaker
+
+```{r}
+#| results: asis
+
+make_ordered_list_filtered(presentations, "invited")
+```
+
 \vspace{-10pt}
