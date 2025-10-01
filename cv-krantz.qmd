@@ -221,6 +221,55 @@ awards %>%
 
 # Teaching Activities
 
+## Clinical Teaching
+
+```{r}
+library(dplyr)
+library(here)
+clinical_teaching <- read.csv(here("data", "clinical-teaching.csv")) %>% 
+  arrange(desc(date_start)) %>% 
+  mutate(citation = paste0(name, ". ", institution," (", date_start, "-", date_stop, ")"))
+
+```
+
+```{r}
+#| results: asis
+
+clinical_teaching %>%
+  pull(citation) %>% 
+  make_bullet_list()
+```
+
+## Research Supervision
+
+```{r}
+library(dplyr)
+library(here)
+research_supervision <- read.csv(here("data", "research-supervision.csv")) %>% 
+  arrange(desc(date_start)) %>% 
+  mutate(citation = paste0(name, ". ", institution," (", date_start, "-", date_stop, ")"))
+```
+
+### PhD Students
+
+```{r}
+#| results: asis
+
+research_supervision %>% dplyr::filter(category=="phd-student") %>%
+  pull(citation) %>% 
+  make_bullet_list()
+```
+
+### Clinical Fellows
+
+```{r}
+#| results: asis
+
+research_supervision %>% filter(category=="clinical-fellow") %>%
+  pull(citation) %>% 
+  make_bullet_list()
+```
+
 # Research Program
 
 ## Current Research Grants & Contracts Funded
