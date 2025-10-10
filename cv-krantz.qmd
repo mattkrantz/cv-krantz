@@ -415,16 +415,18 @@ media %>%
 ```
 
 # Presentations
-
 ```{r}
+library(dplyr)
+library(here)
 presentations <- read.csv(here('data', 'presentations.csv')) %>%
   arrange(desc(date)) %>% 
   mutate(
     with = ifelse(is.na(with), '', paste0(', with ', with)),
     title = paste0(enquote(title), with),
     title = ifelse(is.na(series), title, paste(title, series, sep = '. ')),
-    date = paste0(format(as.Date(date), format = "%b %d, %Y"), '.'),
-    citation = paste(title, host, location, date, sep = '. ')
+    date = as.Date(date, format="%m/%d/%y"),
+    date_formatted = format(date, format="%b %d, %Y"),
+    citation = paste(title, host, location, date_formatted, sep = '. ')
   )
 ```
 
