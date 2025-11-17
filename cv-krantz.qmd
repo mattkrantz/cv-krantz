@@ -63,6 +63,9 @@ source("functions.R")
  & & \hspace{2em}Minors - Chemistry, Writing for the Screen and Stage\\[5pt]
 
 2016 & MD & University of North Carolina School of Medicine, Chapel Hill, NC\\[5pt]
+
+2026 (anticipated) & MS & Vanderbilt University, Nashville, TN\\
+ & & \hspace{2em}Biomedical Informatics\\[5pt]
 \end{longtable}
 
 \vspace{-10pt}
@@ -86,14 +89,19 @@ source("functions.R")
 
 # Research Interests
 \vspace{-10pt}
-- **Immunogenomics**
+- Drug Hypersensitivity
+- Allergic Diseases
+- Translational Bioinformatics
+- Immunogenomics
 
 \vspace{-10pt}
 
 # Teaching Interests
 \vspace{-10pt}
 
-- **Clinical Drug Allergy**:
+- Clinical Drug Allergy
+
+{{< pagebreak >}}
 
 # Academic Appointments
 
@@ -288,9 +296,19 @@ grants <- read.csv(here('data', 'grants.csv')) %>%
     citation = paste0(id, ". ", title, ". Source of Support: ", source_of_support, ". ", "PI: ", pi_name, ". Total Award Amount: ", budget_total, ". Project Start and End Date: ", project_start_date_formatted, " - ", project_end_date_formatted)) %>% arrange(desc(project_end_date))
 ```
 
+### Principal Investigator
 ```{r}
 #| results: asis
-grants %>% pull(citation) %>% make_ordered_list()
+grants %>% filter(pi==1) %>% pull(citation) %>% make_ordered_list()
+```
+
+## Pending
+
+### Co-Investigator
+
+```{r}
+#| results: asis
+grants %>% filter(co_investigator==1) %>% pull(citation) %>% make_ordered_list()
 ```
 
 # Articles in Peer-Reviewed Journals
