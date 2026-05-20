@@ -64,7 +64,7 @@ source("functions.R")
 
 2016 & MD & University of North Carolina School of Medicine, Chapel Hill, NC\\[5pt]
 
-2026 (anticipated) & MS & Vanderbilt University, Nashville, TN\\
+2026 & MS & Vanderbilt University, Nashville, TN\\
  & & \hspace{2em}Biomedical Informatics\\[5pt]
 \end{longtable}
 
