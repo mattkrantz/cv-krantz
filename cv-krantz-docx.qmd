@@ -1,0 +1,358 @@
+---
+format:
+  docx:
+    reference-doc: Curriculum-Vitae-SOM-Format-8.2022-1.docx
+    toc: false
+execute:
+  warning: false
+  echo: false
+  message: false
+  eval: true
+---
+
+```{r}
+#| name: setup
+#| include: false
+
+library(dplyr)
+library(here)
+library(stringr)
+library(lubridate)
+source("functions.R")
+```
+
+# Name: Matthew Steven Krantz, MD, MS
+
+Office Address: 2525 West End Ave, Suite 9500, Rm 9512, Nashville, TN 37203
+
+Office Phone Number: +1 (615) 936-8415
+
+Email: matthew.s.krantz@vumc.org
+
+Lab Website: [krantzlab.org](http://krantzlab.org)
+
+
+
+# Education
+
+- **College:** University of North Carolina, Chapel Hill, NC. BS, 2012 (Biology with distinction; Minors: Chemistry, Writing for the Screen and Stage).
+- **Professional:** University of North Carolina School of Medicine, Chapel Hill, NC. MD, 2016.
+- **Graduate:** Vanderbilt University, Nashville, TN. MS, Biomedical Informatics, 2026.
+- **Postgraduate Training:** Internship/Residency, Internal Medicine/Pediatrics, Vanderbilt University Medical Center, Nashville, TN, 2016–2020.
+- **Postgraduate Training:** Fellowship, Allergy/Immunology, Vanderbilt University Medical Center, Nashville, TN, 2020–2024.
+
+# Licensure and Certification
+
+```{r}
+licensure_certifications <- read.csv(here("data", "licensure-certification.csv")) %>%
+  arrange(desc(year_start)) %>%
+  mutate(citation = paste0(description, " (", year_start, "-", year_end, ")"))
+```
+
+```{r}
+#| results: asis
+licensure_certifications %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+# Academic Appointments
+
+- 2025–Present: Assistant Professor of Medicine and Biomedical Informatics, Vanderbilt University, Nashville, TN.
+- 2024–2025: Instructor in Medicine and Biomedical Informatics, Vanderbilt University, Nashville, TN.
+
+# Professional Organizations
+
+```{r}
+professional_organizations <- read.csv(here("data", "professional-organizations.csv")) %>%
+  mutate(citation = paste0(description))
+```
+
+```{r}
+#| results: asis
+professional_organizations %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+# Professional Activities
+
+## Intramural
+
+```{r}
+intramural <- read.csv(here("data", "professional-activities.csv")) %>%
+  filter(category == "intramural") %>%
+  arrange(desc(year_start)) %>%
+  mutate(citation = paste0(description, " (", year_start, "-", year_end, ")"))
+```
+
+```{r}
+#| results: asis
+intramural %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+## Extramural
+
+```{r}
+extramural <- read.csv(here("data", "professional-activities.csv")) %>%
+  filter(category == "extramural") %>%
+  arrange(desc(year_start)) %>%
+  mutate(citation = paste0(description, " (", year_start, "-", year_end, ")"))
+```
+
+```{r}
+#| results: asis
+extramural %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+## Scientific Reviewer for Peer-Reviewed Journals
+
+```{r}
+peer_review <- read.csv(here("data", "peer-review.csv")) %>%
+  mutate(citation = paste0(description))
+```
+
+```{r}
+#| results: asis
+peer_review %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+## Special Awards and Recognition
+
+```{r}
+awards <- read.csv(here("data", "honors-awards.csv")) %>%
+  arrange(desc(date)) %>%
+  mutate(citation = paste0(description, " (", date, ")"))
+```
+
+```{r}
+#| results: asis
+awards %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+# Teaching Activities
+
+## Clinical Teaching
+
+```{r}
+clinical_teaching <- read.csv(here("data", "clinical-teaching.csv")) %>%
+  arrange(desc(date_start)) %>%
+  mutate(citation = paste0(name, ". ", institution, " (", date_start, "-", date_stop, ")"))
+```
+
+```{r}
+#| results: asis
+clinical_teaching %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+# Research Supervision
+
+```{r}
+research_supervision <- read.csv(here("data", "research-supervision.csv")) %>%
+  arrange(desc(date_start)) %>%
+  mutate(citation = paste0(name, ". ", institution, " (", date_start, "-", date_stop, ")"))
+```
+
+## PhD Students
+
+```{r}
+#| results: asis
+research_supervision %>%
+  filter(category == "phd-student") %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+## Clinical Fellows
+
+```{r}
+#| results: asis
+research_supervision %>%
+  filter(category == "clinical-fellow") %>%
+  pull(citation) %>%
+  make_bullet_list()
+```
+
+# Research Program
+
+```{r}
+grants <- read.csv(here("data", "grants.csv")) %>%
+  mutate(
+    project_start_date = as.Date(project_start_date, format = "%m/%d/%y"),
+    project_end_date = as.Date(project_end_date, format = "%m/%d/%y"),
+    project_start_date_formatted = format(project_start_date, "%m/%d/%y"),
+    project_end_date_formatted = format(project_end_date, "%m/%d/%y"),
+    title = enquote(paste0("[", title, "]", "(", url, ")")),
+    citation = paste0(
+      id, ". ", title, ". Source of Support: ", source_of_support,
+      ". PI: ", pi_name, ". Total Award Amount: ", budget_total,
+      ". Project Start and End Date: ", project_start_date_formatted, " - ", project_end_date_formatted
+    )
+  ) %>%
+  arrange(desc(project_end_date))
+```
+
+## Current Grants — Principal Investigator
+
+```{r}
+#| results: asis
+grants %>%
+  filter(pi == 1) %>%
+  pull(citation) %>%
+  make_ordered_list()
+```
+
+## Pending — Co-Investigator
+
+```{r}
+#| results: asis
+grants %>%
+  filter(co_investigator == 1) %>%
+  pull(citation) %>%
+  make_ordered_list()
+```
+
+# Publications and Presentations
+
+## Articles in Peer-Reviewed Journals
+
+```{r}
+publications <- read.csv(here("data", "publications.csv")) %>%
+  mutate(
+    epub_date = as.Date(epub_date, format = "%m/%d/%y"),
+    author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
+    journal = ifelse(is.na(journal), "", paste0("_", journal, "_.")),
+    number = ifelse(number == "", "", paste0(number, ".")),
+    PMID = ifelse(number == "", "", paste0("PMID: ", PMID, ".")),
+    PMCID = ifelse(PMCID == "", "", paste0("PMCID: ", PMCID, ".")),
+    doi = ifelse(
+      doi == "", "",
+      paste0("DOI: [", doi, "](", "https://doi.org/", doi, ")")
+    ),
+    title = title,
+    citation = paste0(author, ". ", title, ". ", journal, " ", date, ";", number, " ", doi, ". ", PMID, " ", PMCID)
+  ) %>%
+  arrange(desc(epub_date))
+```
+
+### Original Research
+
+```{r}
+#| results: asis
+make_ordered_list_filtered(publications, "original_research")
+```
+
+### Reviews
+
+```{r}
+#| results: asis
+make_ordered_list_filtered(publications, "reviews")
+```
+
+### Invited Editorials
+
+```{r}
+#| results: asis
+make_ordered_list_filtered(publications, "invited_editorials")
+```
+
+### Case Reports
+
+```{r}
+#| results: asis
+make_ordered_list_filtered(publications, "case_reports")
+```
+
+## Book Chapters
+
+```{r}
+book_chapters <- read.csv(here("data", "book-chapters.csv")) %>%
+  mutate(
+    author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
+    book_title = ifelse(is.na(book_title), "", paste0("_", book_title, "_")),
+    chapter_title = enquote(chapter_title),
+    citation = paste0(author, ". ", "(", date, ") ", chapter_title, " in ", editor, " (ed.) ", book_title, ". ", place, ": ", publisher, ".")
+  ) %>%
+  arrange(desc(date))
+```
+
+```{r}
+#| results: asis
+make_ordered_list_filtered(book_chapters, "book_chapters")
+```
+
+## Graphic Medicine
+
+```{r}
+graphic_medicine <- read.csv(here("data", "graphic-medicine.csv")) %>%
+  mutate(
+    epub_date = as.Date(epub_date, format = "%m/%d/%y"),
+    author = str_replace(author, "\\bKrantz MS\\b", "**Krantz MS**"),
+    journal = ifelse(is.na(journal), "", paste0("_", journal, "_.")),
+    number = ifelse(is.na(number), "", paste0(number, ".")),
+    PMCID = ifelse(is.na(number), "", PMCID),
+    doi = ifelse(
+      is.na(doi), "",
+      paste0("DOI: [", doi, "](", "https://doi.org/", doi, ")")
+    ),
+    title = title,
+    citation = paste0(author, ". ", title, ". ", journal, " ", date, ";", number, " ", doi, ". ", "PMID: ", PMID, "; ", "PMCID: ", PMCID, ".")
+  ) %>%
+  arrange(desc(epub_date))
+```
+
+```{r}
+#| results: asis
+make_ordered_list_filtered(graphic_medicine, "graphic_medicine")
+```
+
+## Media
+
+```{r}
+media <- read.csv(here("data", "media.csv")) %>%
+  arrange(desc(date)) %>%
+  mutate(
+    date = format(date, format = "%b %d, %Y"),
+    outlet = paste0("**", outlet, "**"),
+    citation = paste0(date, ", ", outlet, ": ", post, ".")
+  )
+```
+
+```{r}
+#| results: asis
+media %>%
+  pull(citation) %>%
+  make_ordered_list()
+```
+
+## Presentations at Scientific Meetings
+
+```{r}
+presentations <- read.csv(here("data", "presentations.csv")) %>%
+  arrange(desc(date)) %>%
+  mutate(
+    with = ifelse(is.na(with), "", paste0(", with ", with)),
+    title = paste0(enquote(title), with),
+    title = ifelse(is.na(series), title, paste(title, series, sep = ". ")),
+    date = as.Date(date, format = "%m/%d/%y"),
+    date_formatted = format(date, format = "%b %d, %Y"),
+    citation = paste(title, host, location, date_formatted, sep = ". ")
+  )
+```
+
+### Invited Speaker
+
+```{r}
+#| results: asis
+make_ordered_list_filtered(presentations, "invited")
+```
